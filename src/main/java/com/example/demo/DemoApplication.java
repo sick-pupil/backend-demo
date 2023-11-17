@@ -14,7 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @SpringBootApplication
 @MapperScan(basePackages = {"com.example.demo.mapper"})
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class DemoApplication {
 
     public static void main(String[] args) {
