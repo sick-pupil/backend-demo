@@ -5,6 +5,7 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * @author lhy
@@ -22,5 +23,23 @@ public class Role extends Model<Role> implements GrantedAuthority, Serializable 
     @Override
     public String getAuthority() {
         return this.role;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else {
+            if(o == null || !(o instanceof Role)) {
+                return false;
+            } else {
+                return this.role.equals(((Role) o).getRole());
+            }
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return this.role.hashCode();
     }
 }
