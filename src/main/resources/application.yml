@@ -78,3 +78,24 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     call-setters-on-nulls: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+debezium:
+  name: test_table_listener
+  connector-class: io.debezium.connector.mysql.MySqlConnector
+  offset-storage: org.apache.kafka.connect.storage.FileOffsetBackingStore
+  offset-storage-file-filename: /home/offsets.dat
+  offset-flush-interval-ms: 60000
+  include-schema-changes: true
+  #datasource: test
+  table-whitelist: test.user_info
+  host: localhost
+  port: 3306
+  username: root
+  password: 137hong56962438
+  server-time-zone: UTC
+  database-allowPublicKeyRetrieval: true
+  database-server-id: 1
+  database-server-name: test_mysql_instance
+  database-history: io.debezium.relational.history.FileDatabaseHistory
+  database-history-file-filename: /home/history_offsets.dat
+
