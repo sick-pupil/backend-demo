@@ -10,10 +10,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 //dynamic-datasource生效需要如此设置
 //@SpringBootApplication(exclude = DruidDataSourceAutoConfigure.class)
 //springsecurity禁用需要如此设置
-//@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
-@SpringBootApplication
+@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 @MapperScan(basePackages = {"com.example.demo.mapper"})
-@EnableWebSecurity
+//@EnableWebSecurity
 public class DemoApplication {
 
     public static void main(String[] args) {

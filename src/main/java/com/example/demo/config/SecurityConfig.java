@@ -19,9 +19,10 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
  * @create 2023-11-16 15:13
  * @description
  **/
-@Configuration
+//@Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    /**
     @Autowired
     private UserService userService;
 
@@ -53,12 +54,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
-        /**
-        auth.inMemoryAuthentication()
-                .withUser("admin").password(passwordEncoder().encode("123")).roles("admin")
-                .and()
-                .withUser("root").password(passwordEncoder().encode("123")).roles("root");
-         **/
     }
 
     @Override
@@ -69,4 +64,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/dynamicDs/selectMysqlDs").anonymous()
                 .anyRequest().authenticated();
     }
+    **/
 }

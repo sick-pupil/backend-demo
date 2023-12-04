@@ -78,3 +78,13 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     call-setters-on-nulls: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+debezium:
+  datasource: test
+  host: localhost
+  port: 3306
+  username: root
+  password: 137hong56962438
+  tablename: user_info
+  servertimezone: UTC
+
