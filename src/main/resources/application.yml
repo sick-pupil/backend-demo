@@ -86,15 +86,15 @@ debezium:
   offset-storage-file-filename: /home/offsets.dat
   offset-flush-interval-ms: 60000
   include-schema-changes: true
-  #datasource: test
-  table-whitelist: test.user_info
+  database-include-list: test
+  table-include-list: test.user_info
   host: localhost
   port: 3306
   username: root
   password: 137hong56962438
   server-time-zone: UTC
   database-allowPublicKeyRetrieval: true
-  database-server-id: 1
+#  database-server-id: 1
   database-server-name: test_mysql_instance
   database-history: io.debezium.relational.history.FileDatabaseHistory
   database-history-file-filename: /home/history_offsets.dat

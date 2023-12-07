@@ -26,9 +26,9 @@ public class DebeziumPropertyConfig {
 
     private String includeSchemaChanges;
 
-    //private String datasource;
+    private String databaseIncludeList;
 
-    private String tableWhitelist;
+    private String tableIncludeList;
 
     private String host;
 
