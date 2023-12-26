@@ -83,9 +83,9 @@ debezium:
   name: test_table_listener
   connector-class: io.debezium.connector.mysql.MySqlConnector
   offset-storage: org.apache.kafka.connect.storage.FileOffsetBackingStore
-  offset-storage-file-filename: /home/offsets.dat
+  offset-storage-file-filename: /data/debezium/offsets.dat
   offset-flush-interval-ms: 60000
-  include-schema-changes: true
+  include-schema-changes: false
   database-include-list: test
   table-include-list: test.user_info
   host: localhost
@@ -94,8 +94,8 @@ debezium:
   password: 137hong56962438
   server-time-zone: UTC
   database-allowPublicKeyRetrieval: true
-#  database-server-id: 1
   database-server-name: test_mysql_instance
   database-history: io.debezium.relational.history.FileDatabaseHistory
-  database-history-file-filename: /home/history_offsets.dat
-
+  database-history-file-filename: /data/debezium/history_offsets.dat
+  database-history-store-only-captured-tables-ddl: true
+  snapshot-mode: schema_only
