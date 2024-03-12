@@ -29,6 +29,7 @@ import java.util.Objects;
 @Component
 public class DebeziumListener {
 
+    /**
     private final Executor executor = new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MINUTES, new SynchronousQueue<>());
     private final DebeziumEngine<RecordChangeEvent<SourceRecord>> debeziumEngine;
 
@@ -57,4 +58,5 @@ public class DebeziumListener {
             this.debeziumEngine.close();
         }
     }
+    **/
 }

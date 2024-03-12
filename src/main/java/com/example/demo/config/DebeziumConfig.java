@@ -15,6 +15,7 @@ import java.io.IOException;
 @Configuration
 public class DebeziumConfig {
 
+    /**
     @Autowired
     private DebeziumPropertyConfig debeziumPropertyConfig;
 
@@ -41,4 +42,5 @@ public class DebeziumConfig {
                 .with("database.history.file.filename", debeziumPropertyConfig.getDatabaseHistoryFileFilename())
                 .build();
     }
+    **/
 }

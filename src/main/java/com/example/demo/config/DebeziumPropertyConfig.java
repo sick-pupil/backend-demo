@@ -10,10 +10,11 @@ import org.springframework.context.annotation.Configuration;
  * @description
  **/
 @Data
-@Configuration
-@ConfigurationProperties(prefix = "debezium")
+//@Configuration
+//@ConfigurationProperties(prefix = "debezium")
 public class DebeziumPropertyConfig {
 
+    /**
     private String name;
 
     private String connectorClass;
@@ -49,4 +50,5 @@ public class DebeziumPropertyConfig {
     private String databaseHistory;
 
     private String databaseHistoryFileFilename;
+     **/
 }
