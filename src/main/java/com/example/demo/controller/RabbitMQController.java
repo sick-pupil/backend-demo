@@ -4,6 +4,12 @@ import com.example.demo.service.RabbitMQService;
 import com.rabbitmq.client.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.rabbit.annotation.RabbitHandler;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+//import org.springframework.amqp.core.MessageProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +28,9 @@ import java.util.Random;
 @RequestMapping("/rabbitmq")
 @RequiredArgsConstructor
 public class RabbitMQController {
+
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
 
     private final RabbitMQService rabbitMQService;
 
@@ -302,5 +311,39 @@ public class RabbitMQController {
         };
 
         channel.basicConsume(NORMAL_QUEUE_NAME, false, deliverCallback, cancelCallback);
+    }
+
+    @GetMapping("/ttlProduce")
+    public void ttlProduce() {
+        rabbitTemplate.convertAndSend("X", "XA", getRandomString(10));
+        rabbitTemplate.convertAndSend("X", "XB", getRandomString(10));
+        rabbitTemplate.convertAndSend("X", "XC", getRandomString(10));
+
+        org.springframework.amqp.core.MessageProperties messageProperties = new org.springframework.amqp.core.MessageProperties();
+        Message message = new Message("hello word ".getBytes(), messageProperties);
+        rabbitTemplate.convertAndSend("X", "XA", message);
+
+        rabbitTemplate.convertAndSend("Z", "", getRandomString(10));
+    }
+
+    @RabbitListener(queues = "QA")
+    @RabbitHandler
+    @GetMapping("/ttlConsumeA")
+    public void ttlConsumeA(String message) {
+        log.info("consume a {}", message);
+    }
+
+    @RabbitListener(queues = "QB")
+    @RabbitHandler
+    @GetMapping("/ttlConsumeB")
+    public void ttlConsumeB(String message) {
+        log.info("consume b {}", message);
+    }
+
+    @RabbitListener(queues = "QC")
+    @RabbitHandler
+    @GetMapping("/ttlConsumeC")
+    public void ttlConsumeC(String message) {
+        log.info("consume c {}", message);
     }
 }
