@@ -9,26 +9,21 @@ import lombok.Data;
 
 import java.io.Serializable;
 
-/**
- * @author lhy
- * @create 2023-11-07 14:11
- * @description
- **/
 @Data
-@TableName("user_info")
-public class UserInfo extends Model<UserInfo> implements Serializable {
+@TableName("test_dict_tb")
+public class TestDictTb extends Model<TestDictTb> implements Serializable {
 
-    private static final long serialVersionUID = 9037442445719865501L;
+    private static final long serialVersionUID = -1885703989822504548L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @TableField("age")
-    private Long age;
+    @TableField("dict_type")
+    private String dictType;
 
-    @TableField("address")
-    private String address;
+    @TableField("dict_key")
+    private String dictKey;
 
-    @TableField("email")
-    private String email;
+    @TableField("dict_value")
+    private String dictValue;
 }

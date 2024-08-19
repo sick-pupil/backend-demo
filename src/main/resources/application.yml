@@ -15,62 +15,67 @@ server:
 spring:
   application:
     name: demo
-  rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    username: guest
-    password: guest
-    virtual-host: /
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/demo?serverTimezone=UTC
-    username: root
-    password: 137hong56962438
-    type: com.alibaba.druid.pool.DruidDataSource
-    druid:
-      initial-size: 10
-      min-idle: 10
-      max-active: 50
-      max-wait: 10
-      time-between-eviction-runs-millis: 10000
-      min-evictable-idle-time-millis: 30000
-      validation-query: SELECT 1 FROM DUAL
-      test-while-idle: true
-      test-on-borrow: false
-      test-on-return: true
-      pool-prepared-statements: false
-      max-pool-prepared-statement-per-connection-size: 20
-      filters: stat,wall
+#  rabbitmq:
+#    host: 127.0.0.1
+#    port: 5672
+#    username: guest
+#    password: guest
+#    virtual-host: /
 #  datasource:
-#    dynamic:
-#      primary: mysql
-#      strict: false
-#      datasource:
-#        mysql:
-#          driver-class-name: com.mysql.cj.jdbc.Driver
-#          url: jdbc:mysql://localhost:3306/test?serverTimezone=UTC
-#          username: root
-#          password: 137hong56962438
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/demo?serverTimezone=UTC
+#    username: root
+#    password: 137hong56962438
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    druid:
+#      initial-size: 10
+#      min-idle: 10
+#      max-active: 50
+#      max-wait: 10
+#      time-between-eviction-runs-millis: 10000
+#      min-evictable-idle-time-millis: 30000
+#      validation-query: SELECT 1 FROM DUAL
+#      test-while-idle: true
+#      test-on-borrow: false
+#      test-on-return: true
+#      pool-prepared-statements: false
+#      max-pool-prepared-statement-per-connection-size: 20
+#      filters: stat,wall
+  datasource:
+    dynamic:
+      primary: mysql
+      strict: false
+      datasource:
+        mysql:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/demo?serverTimezone=UTC
+          username: root
+          password: 137hong56962438
 #        postgresql:
 #          driver-class-name: org.postgresql.Driver
 #          url: jdbc:postgresql://localhost:5432/postgres?characterEncoding=utf-8&amp;useUnicode=true
 #          username: postgres
 #          password: 137hong56962438
-#      type: com.alibaba.druid.pool.DruidDataSource
-#      druid:
-#        initial-size: 10
-#        min-idle: 10
-#        max-active: 50
-#        max-wait: 10
-#        time-between-eviction-runs-millis: 10000
-#        min-evictable-idle-time-millis: 30000
-#        # validation-query: SELECT 1 FROM DUAL
-#        test-while-idle: true
-#        test-on-borrow: false
-#        test-on-return: true
-#        pool-prepared-statements: false
-#        max-pool-prepared-statement-per-connection-size: 20
-#        filters: stat,wall
+        mysql-shardingproxy:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://192.168.44.131:3303/sharding_readwrite_splitting_db?serverTimezone=UTC
+          username: root
+          password: 137hong56962438
+      type: com.alibaba.druid.pool.DruidDataSource
+      druid:
+        initial-size: 10
+        min-idle: 10
+        max-active: 50
+        max-wait: 10
+        time-between-eviction-runs-millis: 10000
+        min-evictable-idle-time-millis: 30000
+        validation-query: SELECT 1 FROM DUAL
+        test-while-idle: true
+        test-on-borrow: false
+        test-on-return: true
+        pool-prepared-statements: false
+        max-pool-prepared-statement-per-connection-size: 20
+        filters: stat,wall
 #  security:
 #    user:
 #      name: admin

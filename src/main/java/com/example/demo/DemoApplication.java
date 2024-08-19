@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 //@SpringBootApplication(exclude = DruidDataSourceAutoConfigure.class)
 //springsecurity禁用需要如此设置
 //@EnableWebSecurity
-@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
+@SpringBootApplication(exclude = {SecurityAutoConfiguration.class, DruidDataSourceAutoConfigure.class})
 @MapperScan(basePackages = {"com.example.demo.mapper"})
 public class DemoApplication {
 
