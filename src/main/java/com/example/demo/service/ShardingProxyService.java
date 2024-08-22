@@ -1,9 +1,9 @@
 package com.example.demo.service;
 
-import com.baomidou.dynamic.datasource.annotation.DS;
+import org.springframework.transaction.annotation.Transactional;
 
+//@Transactional(rollbackFor = Exception.class)
 public interface ShardingProxyService {
 
-    @DS("mysql-shardingproxy")
-    void insertData();
+    void migrateData() throws Exception;
 }

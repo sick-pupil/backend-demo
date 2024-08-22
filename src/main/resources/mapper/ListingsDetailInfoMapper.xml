@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.ListingsDetailInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.demo.bean.ListingsDetailInfo">
+            <result property="id" column="id" jdbcType="BIGINT"/>
+            <result property="listingUrl" column="listing_url" jdbcType="VARCHAR"/>
+            <result property="scrapeId" column="scrape_id" jdbcType="BIGINT"/>
+            <result property="lastScraped" column="last_scraped" jdbcType="DATE"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="summary" column="summary" jdbcType="VARCHAR"/>
+            <result property="space" column="space" jdbcType="VARCHAR"/>
+            <result property="description" column="description" jdbcType="VARCHAR"/>
+            <result property="experiencesOffered" column="experiences_offered" jdbcType="VARCHAR"/>
+            <result property="neighborhoodOverview" column="neighborhood_overview" jdbcType="VARCHAR"/>
+            <result property="notes" column="notes" jdbcType="VARCHAR"/>
+            <result property="transit" column="transit" jdbcType="VARCHAR"/>
+            <result property="access" column="access" jdbcType="VARCHAR"/>
+            <result property="interaction" column="interaction" jdbcType="VARCHAR"/>
+            <result property="houseRules" column="house_rules" jdbcType="VARCHAR"/>
+            <result property="thumbnailUrl" column="thumbnail_url" jdbcType="VARCHAR"/>
+            <result property="mediumUrl" column="medium_url" jdbcType="VARCHAR"/>
+            <result property="pictureUrl" column="picture_url" jdbcType="VARCHAR"/>
+            <result property="xlPictureUrl" column="xl_picture_url" jdbcType="VARCHAR"/>
+            <result property="hostId" column="host_id" jdbcType="BIGINT"/>
+            <result property="hostUrl" column="host_url" jdbcType="VARCHAR"/>
+            <result property="hostName" column="host_name" jdbcType="VARCHAR"/>
+            <result property="hostSince" column="host_since" jdbcType="DATE"/>
+            <result property="hostLocation" column="host_location" jdbcType="VARCHAR"/>
+            <result property="hostAbout" column="host_about" jdbcType="VARCHAR"/>
+            <result property="hostResponseTime" column="host_response_time" jdbcType="VARCHAR"/>
+            <result property="hostResponseRate" column="host_response_rate" jdbcType="VARCHAR"/>
+            <result property="hostAcceptanceRate" column="host_acceptance_rate" jdbcType="VARCHAR"/>
+            <result property="hostIsSuperhost" column="host_is_superhost" jdbcType="VARCHAR"/>
+            <result property="hostThumbnailUrl" column="host_thumbnail_url" jdbcType="VARCHAR"/>
+            <result property="hostPictureUrl" column="host_picture_url" jdbcType="VARCHAR"/>
+            <result property="hostNeighbourhood" column="host_neighbourhood" jdbcType="VARCHAR"/>
+            <result property="hostListingsCount" column="host_listings_count" jdbcType="BIGINT"/>
+            <result property="hostTotalListingsCount" column="host_total_listings_count" jdbcType="BIGINT"/>
+            <result property="hostVerifications" column="host_verifications" jdbcType="VARCHAR"/>
+            <result property="hostHasProfilePic" column="host_has_profile_pic" jdbcType="VARCHAR"/>
+            <result property="hostIdentityVerified" column="host_identity_verified" jdbcType="VARCHAR"/>
+            <result property="street" column="street" jdbcType="VARCHAR"/>
+            <result property="neighbourhood" column="neighbourhood" jdbcType="VARCHAR"/>
+            <result property="neighbourhoodCleansed" column="neighbourhood_cleansed" jdbcType="VARCHAR"/>
+            <result property="neighbourhoodGroupCleansed" column="neighbourhood_group_cleansed" jdbcType="VARCHAR"/>
+            <result property="city" column="city" jdbcType="VARCHAR"/>
+            <result property="state" column="state" jdbcType="VARCHAR"/>
+            <result property="zipcode" column="zipcode" jdbcType="BIGINT"/>
+            <result property="market" column="market" jdbcType="VARCHAR"/>
+            <result property="smartLocation" column="smart_location" jdbcType="VARCHAR"/>
+            <result property="countryCode" column="country_code" jdbcType="VARCHAR"/>
+            <result property="country" column="country" jdbcType="VARCHAR"/>
+            <result property="latitude" column="latitude" jdbcType="DECIMAL"/>
+            <result property="longitude" column="longitude" jdbcType="DECIMAL"/>
+            <result property="isLocationExact" column="is_location_exact" jdbcType="VARCHAR"/>
+            <result property="propertyType" column="property_type" jdbcType="VARCHAR"/>
+            <result property="roomType" column="room_type" jdbcType="VARCHAR"/>
+            <result property="accommodates" column="accommodates" jdbcType="BIGINT"/>
+            <result property="bathrooms" column="bathrooms" jdbcType="DECIMAL"/>
+            <result property="bedrooms" column="bedrooms" jdbcType="BIGINT"/>
+            <result property="beds" column="beds" jdbcType="BIGINT"/>
+            <result property="bedType" column="bed_type" jdbcType="VARCHAR"/>
+            <result property="amenities" column="amenities" jdbcType="VARCHAR"/>
+            <result property="squareFeet" column="square_feet" jdbcType="BIGINT"/>
+            <result property="price" column="price" jdbcType="VARCHAR"/>
+            <result property="weeklyPrice" column="weekly_price" jdbcType="VARCHAR"/>
+            <result property="monthlyPrice" column="monthly_price" jdbcType="VARCHAR"/>
+            <result property="securityDeposit" column="security_deposit" jdbcType="VARCHAR"/>
+            <result property="cleaningFee" column="cleaning_fee" jdbcType="VARCHAR"/>
+            <result property="guestsIncluded" column="guests_included" jdbcType="BIGINT"/>
+            <result property="extraPeople" column="extra_people" jdbcType="VARCHAR"/>
+            <result property="minimumNights" column="minimum_nights" jdbcType="BIGINT"/>
+            <result property="maximumNights" column="maximum_nights" jdbcType="BIGINT"/>
+            <result property="calendarUpdated" column="calendar_updated" jdbcType="VARCHAR"/>
+            <result property="hasAvailability" column="has_availability" jdbcType="VARCHAR"/>
+            <result property="availability30" column="availability_30" jdbcType="BIGINT"/>
+            <result property="availability60" column="availability_60" jdbcType="BIGINT"/>
+            <result property="availability90" column="availability_90" jdbcType="BIGINT"/>
+            <result property="availability365" column="availability_365" jdbcType="BIGINT"/>
+            <result property="calendarLastScraped" column="calendar_last_scraped" jdbcType="DATE"/>
+            <result property="numberOfReviews" column="number_of_reviews" jdbcType="BIGINT"/>
+            <result property="firstReview" column="first_review" jdbcType="DATE"/>
+            <result property="lastReview" column="last_review" jdbcType="DATE"/>
+            <result property="reviewScoresRating" column="review_scores_rating" jdbcType="BIGINT"/>
+            <result property="reviewScoresAccuracy" column="review_scores_accuracy" jdbcType="BIGINT"/>
+            <result property="reviewScoresCleanliness" column="review_scores_cleanliness" jdbcType="BIGINT"/>
+            <result property="reviewScoresCheckin" column="review_scores_checkin" jdbcType="BIGINT"/>
+            <result property="reviewScoresCommunication" column="review_scores_communication" jdbcType="BIGINT"/>
+            <result property="reviewScoresLocation" column="review_scores_location" jdbcType="BIGINT"/>
+            <result property="reviewScoresValue" column="review_scores_value" jdbcType="BIGINT"/>
+            <result property="requiresLicense" column="requires_license" jdbcType="VARCHAR"/>
+            <result property="license" column="license" jdbcType="VARCHAR"/>
+            <result property="jurisdictionNames" column="jurisdiction_names" jdbcType="VARCHAR"/>
+            <result property="instantBookable" column="instant_bookable" jdbcType="VARCHAR"/>
+            <result property="cancellationPolicy" column="cancellation_policy" jdbcType="VARCHAR"/>
+            <result property="requireGuestProfilePicture" column="require_guest_profile_picture" jdbcType="VARCHAR"/>
+            <result property="requireGuestPhoneVerification" column="require_guest_phone_verification" jdbcType="VARCHAR"/>
+            <result property="calculatedHostListingsCount" column="calculated_host_listings_count" jdbcType="BIGINT"/>
+            <result property="reviewsPerMonth" column="reviews_per_month" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,listing_url,scrape_id,
+        last_scraped,name,summary,
+        space,description,experiences_offered,
+        neighborhood_overview,notes,transit,
+        access,interaction,house_rules,
+        thumbnail_url,medium_url,picture_url,
+        xl_picture_url,host_id,host_url,
+        host_name,host_since,host_location,
+        host_about,host_response_time,host_response_rate,
+        host_acceptance_rate,host_is_superhost,host_thumbnail_url,
+        host_picture_url,host_neighbourhood,host_listings_count,
+        host_total_listings_count,host_verifications,host_has_profile_pic,
+        host_identity_verified,street,neighbourhood,
+        neighbourhood_cleansed,neighbourhood_group_cleansed,city,
+        state,zipcode,market,
+        smart_location,country_code,country,
+        latitude,longitude,is_location_exact,
+        property_type,room_type,accommodates,
+        bathrooms,bedrooms,beds,
+        bed_type,amenities,square_feet,
+        price,weekly_price,monthly_price,
+        security_deposit,cleaning_fee,guests_included,
+        extra_people,minimum_nights,maximum_nights,
+        calendar_updated,has_availability,availability_30,
+        availability_60,availability_90,availability_365,
+        calendar_last_scraped,number_of_reviews,first_review,
+        last_review,review_scores_rating,review_scores_accuracy,
+        review_scores_cleanliness,review_scores_checkin,review_scores_communication,
+        review_scores_location,review_scores_value,requires_license,
+        license,jurisdiction_names,instant_bookable,
+        cancellation_policy,require_guest_profile_picture,require_guest_phone_verification,
+        calculated_host_listings_count,reviews_per_month
+    </sql>
+</mapper>

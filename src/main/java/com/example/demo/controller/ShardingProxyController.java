@@ -15,8 +15,12 @@ public class ShardingProxyController {
     @Autowired
     private ShardingProxyService shardingProxyService;
 
-    @GetMapping("insertData")
-    public void insertData() {
-        shardingProxyService.insertData();
+    @GetMapping("/migrateData")
+    public void migrateData() {
+        try {
+            shardingProxyService.migrateData();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }
