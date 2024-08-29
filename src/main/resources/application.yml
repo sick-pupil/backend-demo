@@ -21,33 +21,33 @@ spring:
 #    username: guest
 #    password: guest
 #    virtual-host: /
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://localhost:3306/demo?serverTimezone=UTC
-#    username: root
-#    password: 137hong56962438
-#    type: com.alibaba.druid.pool.DruidDataSource
-#    druid:
-#      initial-size: 10
-#      min-idle: 10
-#      max-active: 50
-#      max-wait: 10
-#      time-between-eviction-runs-millis: 10000
-#      min-evictable-idle-time-millis: 30000
-#      validation-query: SELECT 1 FROM DUAL
-#      test-while-idle: true
-#      test-on-borrow: false
-#      test-on-return: true
-#      pool-prepared-statements: false
-#      max-pool-prepared-statement-per-connection-size: 20
-#      filters: stat,wall
   datasource:
-    dynamic:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/demo?serverTimezone=UTC
+    username: root
+    password: 137hong56962438
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 10
+      min-idle: 10
+      max-active: 50
+      max-wait: 10
+      time-between-eviction-runs-millis: 10000
+      min-evictable-idle-time-millis: 30000
+      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: true
+      pool-prepared-statements: false
+      max-pool-prepared-statement-per-connection-size: 20
+      filters: stat,wall
+#  datasource:
+#    dynamic:
 #      primary: mysql
 #      primary: sharding_readwrite_splitting_test_db
-      primary: airbnb_db
-      strict: false
-      datasource:
+#      primary: airbnb_db
+#      strict: false
+#      datasource:
 #        mysql:
 #          driver-class-name: com.mysql.cj.jdbc.Driver
 #          url: jdbc:mysql://localhost:3306/demo?serverTimezone=UTC
@@ -58,36 +58,36 @@ spring:
 #          url: jdbc:postgresql://localhost:5432/postgres?characterEncoding=utf-8&amp;useUnicode=true
 #          username: postgres
 #          password: 137hong56962438
-        airbnb_db:
-          driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://localhost:3306/airbnb_db?serverTimezone=UTC
-          username: root
-          password: 137hong56962438
-        sharding_readwrite_splitting_airbnb_db:
-          driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://192.168.44.131:3303/sharding_readwrite_splitting_airbnb_db?serverTimezone=UTC
-          username: root
-          password: 137hong56962438
+#        airbnb_db:
+#          driver-class-name: com.mysql.cj.jdbc.Driver
+#          url: jdbc:mysql://localhost:3306/airbnb_db?serverTimezone=UTC
+#          username: root
+#          password: 137hong56962438
+#        sharding_readwrite_splitting_airbnb_db:
+#          driver-class-name: com.mysql.cj.jdbc.Driver
+#          url: jdbc:mysql://192.168.44.131:3303/sharding_readwrite_splitting_airbnb_db?serverTimezone=UTC
+#          username: root
+#          password: 137hong56962438
 #        sharding_readwrite_splitting_test_db:
 #          driver-class-name: com.mysql.cj.jdbc.Driver
 #          url: jdbc:mysql://192.168.44.131:3303/sharding_readwrite_splitting_test_db?serverTimezone=UTC
 #          username: root
 #          password: 137hong56962438
-      type: com.alibaba.druid.pool.DruidDataSource
-      druid:
-        initial-size: 10
-        min-idle: 10
-        max-active: 50
-        max-wait: 10
-        time-between-eviction-runs-millis: 10000
-        min-evictable-idle-time-millis: 30000
-        validation-query: SELECT 1 FROM DUAL
-        test-while-idle: true
-        test-on-borrow: false
-        test-on-return: true
-        pool-prepared-statements: false
-        max-pool-prepared-statement-per-connection-size: 20
-        filters: stat,wall
+#      type: com.alibaba.druid.pool.DruidDataSource
+#      druid:
+#        initial-size: 10
+#        min-idle: 10
+#        max-active: 50
+#        max-wait: 10
+#        time-between-eviction-runs-millis: 10000
+#        min-evictable-idle-time-millis: 30000
+#        validation-query: SELECT 1 FROM DUAL
+#        test-while-idle: true
+#        test-on-borrow: false
+#        test-on-return: true
+#        pool-prepared-statements: false
+#        max-pool-prepared-statement-per-connection-size: 20
+#        filters: stat,wall
 #  security:
 #    user:
 #      name: admin

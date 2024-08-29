@@ -12,7 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 //@SpringBootApplication(exclude = DruidDataSourceAutoConfigure.class)
 //springsecurity禁用需要如此设置
 //@EnableWebSecurity
-@SpringBootApplication(exclude = {SecurityAutoConfiguration.class, DruidDataSourceAutoConfigure.class})
+@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 @MapperScan(basePackages = {"com.example.demo.mapper"})
 public class DemoApplication {
 
