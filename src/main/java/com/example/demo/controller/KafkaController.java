@@ -1,12 +1,20 @@
 package com.example.demo.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.*;
+import org.apache.kafka.common.TopicPartition;
+import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
@@ -15,8 +23,8 @@ import java.util.concurrent.ExecutionException;
 @RequestMapping("/kafka")
 public class KafkaController {
 
-    @GetMapping("/asyncSend")
-    public void asyncSend() {
+    @GetMapping("/asyncProduct")
+    public void asyncProduct() {
         //配置
         Properties prop = new Properties();
         //连接地址
@@ -43,8 +51,8 @@ public class KafkaController {
         kafkaProducer.close();
     }
 
-    @GetMapping("/syncSend")
-    public void syncSend() {
+    @GetMapping("/syncProduct")
+    public void syncProduct() {
         //配置
         Properties prop = new Properties();
         //连接地址
@@ -68,8 +76,8 @@ public class KafkaController {
         kafkaProducer.close();
     }
 
-    @GetMapping("/transactionalSend")
-    public void transactionalSend() {
+    @GetMapping("/transactionalProduct")
+    public void transactionalProduct() {
         //配置
         Properties prop = new Properties();
         //连接地址
@@ -111,6 +119,97 @@ public class KafkaController {
             kafkaProducer.abortTransaction();
         } finally {
             kafkaProducer.close();
+        }
+    }
+
+    @GetMapping("/consumeTopic")
+    public void consumeTopic() {
+        //配置
+        Properties properties = new Properties();
+        //连接bootstrap.servers
+        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "ip:port,ip:port");
+        //反序列化
+        properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        //消费者组id
+        properties.put(ConsumerConfig.GROUP_ID_CONFIG, "test");
+        //创建连接
+        KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(properties);
+        //订阅主题
+        ArrayList<String> topics = new ArrayList<>();
+        topics.add("test-topic");
+        kafkaConsumer.subscribe(topics);
+        //消费数据
+        while(true) {
+            //消费间隔时间为1秒
+            ConsumerRecords<String, String> consumerRecords = kafkaConsumer.poll(Duration.ofSeconds(1));
+
+            for(ConsumerRecord<String, String> consumerRecord : consumerRecords) {
+                log.info("{}", consumerRecord);
+            }
+        }
+    }
+
+    @GetMapping("/consumePartition")
+    public void consumePartition() {
+        //配置
+        Properties properties = new Properties();
+        //连接bootstrap.servers
+        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "ip:port,ip:port");
+        //反序列化
+        properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        //消费者组id
+        properties.put(ConsumerConfig.GROUP_ID_CONFIG, "test");
+        //创建连接
+        KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(properties);
+        //订阅主题对应的分区
+        ArrayList<TopicPartition> topicPartitions = new ArrayList<>();
+        topicPartitions.add(new TopicPartition("test-topic", 0));
+        kafkaConsumer.assign(topicPartitions);
+        //消费数据
+        while(true) {
+            //消费间隔时间为1秒
+            ConsumerRecords<String, String> consumerRecords = kafkaConsumer.poll(Duration.ofSeconds(1));
+
+            for(ConsumerRecord<String, String> consumerRecord : consumerRecords) {
+                log.info("{}", consumerRecord);
+            }
+        }
+    }
+
+    @GetMapping("/commitOffset")
+    public void commitOffset() {
+        //配置
+        Properties properties = new Properties();
+        //连接bootstrap.servers
+        properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "ip:port,ip:port");
+        //反序列化
+        properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        //消费者组id
+        properties.put(ConsumerConfig.GROUP_ID_CONFIG, "test");
+        //手动提交offset
+        properties.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
+        //创建连接
+        KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(properties);
+        //订阅主题对应的分区
+        ArrayList<TopicPartition> topicPartitions = new ArrayList<>();
+        topicPartitions.add(new TopicPartition("test-topic", 0));
+        kafkaConsumer.assign(topicPartitions);
+        //消费数据
+        while(true) {
+            //消费间隔时间为1秒
+            ConsumerRecords<String, String> consumerRecords = kafkaConsumer.poll(Duration.ofSeconds(1));
+
+            for(ConsumerRecord<String, String> consumerRecord : consumerRecords) {
+                log.info("{}", consumerRecord);
+            }
+
+            //同步提交offset
+            kafkaConsumer.commitSync();
+            //异步提交offset
+            kafkaConsumer.commitAsync();
         }
     }
 }
