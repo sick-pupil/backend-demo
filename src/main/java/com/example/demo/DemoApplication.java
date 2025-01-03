@@ -1,10 +1,10 @@
 package com.example.demo;
 
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure;
-import com.microsoft.playwright.Browser;
-import com.microsoft.playwright.BrowserType;
-import com.microsoft.playwright.Page;
-import com.microsoft.playwright.Playwright;
+//import com.microsoft.playwright.Browser;
+//import com.microsoft.playwright.BrowserType;
+//import com.microsoft.playwright.Page;
+//import com.microsoft.playwright.Playwright;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
