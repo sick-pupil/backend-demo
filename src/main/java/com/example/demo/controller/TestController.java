@@ -11,17 +11,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
-import java.util.zip.ZipInputStream;
+
+import org.bytedeco.javacv.FFmpegFrameGrabber;
+import org.bytedeco.javacv.Java2DFrameConverter;
+import org.bytedeco.javacv.Frame;
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageOutputStream;
+import javax.imageio.stream.MemoryCacheImageOutputStream;
+import java.awt.image.BufferedImage;
 
 /**
  * @author lhy
@@ -105,6 +109,44 @@ public class TestController {
             log.info("");
         } catch(IOException ex) {
             ex.printStackTrace();
+        }
+    }
+
+    @GetMapping("/getJavaFileContext")
+    public void getJavaFileContext() {
+        String javaFilePath = System.getProperty("user.dir") + "/src/main/java/com/example/demo/controller/TestController.java";
+        try {
+            Files.lines(Paths.get(javaFilePath)).forEach(System.out::println);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @GetMapping("/javacv")
+    public void javacv() {
+        // 视频文件路径（例如：本地文件路径）
+        String videoFilePath = "F:\\vedio\\电影\\start-085ch\\start-085ch.mp4";
+        // 输出图片的保存路径和文件名
+        String outputImagePath = "C:\\Users\\Administrator\\Desktop\\frame.png";
+
+        FFmpegFrameGrabber grabber = new FFmpegFrameGrabber(videoFilePath);
+        try {
+            grabber.start();
+            // 获取第一个可用于图像处理的帧
+            Frame frame = grabber.grabImage();
+            if (frame != null) {
+                // 使用 Java2DFrameConverter 转换 Frame 为 BufferedImage
+                Java2DFrameConverter converter = new Java2DFrameConverter();
+                BufferedImage bufferedImage = converter.convert(frame);
+                // 写入本地文件，图片格式可以选择 "png"、"jpg" 等
+                ImageIO.write(bufferedImage, "png", new File(outputImagePath));
+                System.out.println("图片保存成功：" + outputImagePath);
+            } else {
+                System.out.println("没有获取到图像帧！");
+            }
+            grabber.stop();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
