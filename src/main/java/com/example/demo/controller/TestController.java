@@ -3,12 +3,21 @@ package com.example.demo.controller;
 import com.example.demo.service.TestService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import net.sf.sevenzipjbinding.ExtractOperationResult;
+import net.sf.sevenzipjbinding.IInArchive;
+import net.sf.sevenzipjbinding.SevenZip;
+import net.sf.sevenzipjbinding.impl.RandomAccessFileInStream;
+import net.sf.sevenzipjbinding.simple.ISimpleInArchive;
+import net.sf.sevenzipjbinding.simple.ISimpleInArchiveItem;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
+import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -22,9 +31,9 @@ import java.util.stream.Collectors;
 import org.bytedeco.javacv.FFmpegFrameGrabber;
 import org.bytedeco.javacv.Java2DFrameConverter;
 import org.bytedeco.javacv.Frame;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageOutputStream;
-import javax.imageio.stream.MemoryCacheImageOutputStream;
 import java.awt.image.BufferedImage;
 
 /**
@@ -147,6 +156,70 @@ public class TestController {
             grabber.stop();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @PostMapping("/unrar")
+    public void unrar(@RequestParam("file") MultipartFile file) {
+        String path = "C:\\Users\\Administrator\\Desktop\\";
+        File tmpRarFile = null;
+        try {
+            tmpRarFile = File.createTempFile("tmp", ".rar");
+            file.transferTo(tmpRarFile);
+            try(RandomAccessFile randomAccessFile = new RandomAccessFile(tmpRarFile, "r");
+                RandomAccessFileInStream randomAccessFileInStream = new RandomAccessFileInStream(randomAccessFile);
+                IInArchive inArchive = SevenZip.openInArchive(null, randomAccessFileInStream)) {
+                ISimpleInArchive simpleInArchive = inArchive.getSimpleInterface();
+                for (ISimpleInArchiveItem item : simpleInArchive.getArchiveItems()) {
+                    //是否为文件
+                    if (!item.isFolder()) {
+                        log.info(item.getPath());
+                        ExtractOperationResult result = item.extractSlow(data -> {
+                            OutputStream fileOutputStream = null;
+                            try {
+                                fileOutputStream = new FileOutputStream(path + "1.pdf", true);
+                                IOUtils.write(data, fileOutputStream);
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            } finally {
+                                IOUtils.closeQuietly(fileOutputStream);
+                            }
+                            return data.length;
+                        });
+
+                        if (result == ExtractOperationResult.OK) {
+                            log.info("ok");
+                        }
+                    }
+                }
+                simpleInArchive.close();
+            }
+        } catch (IOException ex) {
+            log.info(ex.getMessage());
+        } finally {
+            tmpRarFile.delete();
+        }
+    }
+
+    @PostMapping("/unzip")
+    public void unzip(@RequestParam("file") MultipartFile file) {
+        String path = "C:\\Users\\Administrator\\Desktop\\";
+
+        try {
+            try(ZipArchiveInputStream is = new ZipArchiveInputStream(new BufferedInputStream(file.getInputStream()))) {
+                ZipArchiveEntry entry;
+                while((entry = is.getNextZipEntry()) != null) {
+                    log.info("aaa");
+                    log.info(entry.getName());
+                    if(!entry.isDirectory()) {
+                        BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(path + "1.pdf", true));
+                        IOUtils.copy(is, os);
+                        IOUtils.closeQuietly(os);
+                    }
+                }
+            }
+        } catch (IOException ex) {
+            log.info(ex.getMessage());
         }
     }
 }
